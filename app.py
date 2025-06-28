@@ -11,16 +11,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Note(db.Model):
-    id         = db.Column(db.Integer, primary_key=True)
-    title      = db.Column(db.String(150), nullable=False)
-    content    = db.Column(db.Text,         nullable=False)
-    created_at = db.Column(db.DateTime,     default=datetime.utcnow)
-
-    # optional alias if you really want note.date_created
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150))
+    content = db.Column(db.Text)
+    tags = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+   
     @property
     def date_created(self):
         return self.created_at
-
+with app.app_context():
+    db.create_all()
 # ---------- routes ----------
 @app.route("/")
 def index():
