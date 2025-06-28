@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}NoteKeeper+{% endblock %}</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- full‑width glass navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark glass-nav">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">NoteKeeper+</a>
+
+      <button class="navbar-toggler" data-bs-toggle="collapse"
+              data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link{% if page=='home' %} active{% endif %}"
+               href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link{% if page=='add' %} active{% endif %}"
+               href="{{ url_for('add_note') }}">Add Note</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- main content -->
+  <main class="container my-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for cat,msg in messages %}
+          <div class="alert alert-{{ cat }} alert-dismissible fade show">
+            {{ msg }}
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <button id="togglrMode" class="btn btn-sm btn-outline-light ms-2">🌙</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toggle dark mode
+    const toggleModeBtn = document.getElementById('togglrMode');
+    toggleModeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      toggleModeBtn.textContent = document.body.classList.contains('dark-mode') ? '🌞' : '🌙';
+    });
+  </script>
+</body>
+</html>
