@@ -411,6 +411,13 @@ body.dark-mode {
 .dark-mode .navbar .navbar-toggler:focus {
     color: #e6cfe4;
 }
+.badge{
+  background-color: #b38cd9;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
 @media (max-width: 576px) {
   .col-md-6{
     flex: 0 0 100%;
